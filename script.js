@@ -61,6 +61,7 @@ function carregarMensagens() {
 
 function mensagensCarregadas(resposta) {
 
+    console.log(resposta.data);
     mensagens = resposta.data;
 
     exibirMensagens();
@@ -89,8 +90,19 @@ function exibirMensagens() {
         `
             lista.innerHTML = lista.innerHTML + template;
 
-        } else {
+        } else if (mensagens[i].type === "private_message" && mensagens[i].to === nome) {
 
+            let template = `
+        <div class="${mensagens[i].type}" data-test="message">
+                <p>
+                    <span class="hora">(${mensagens[i].time})</span>
+                    <span class="nome">${mensagens[i].from} </span> para <span class="nome">${mensagens[i].to} </span>: ${mensagens[i].text}
+                </p>
+        </div>
+        `
+            lista.innerHTML = lista.innerHTML + template;
+
+        } else if (mensagens[i].type === "message") {
             let template = `
         <div class="${mensagens[i].type}" data-test="message">
                 <p>
