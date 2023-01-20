@@ -118,3 +118,8 @@ input::placeholder {
 .nome {
     font-weight: bold;
 }
+
+button {
+    border: none;
+    background-color: #FFFFFF;
+}
