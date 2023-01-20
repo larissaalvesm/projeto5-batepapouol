@@ -38,11 +38,13 @@
 
 
 
-.container-conteudo {
+.mensagens {
     background-color: #F5F5F5;
     height: 100vh;
     margin-top: 106px;
     width: 375px;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
 .base-mensagem {
@@ -81,19 +83,19 @@ input::placeholder {
     color: #000000;
 }
 
-.msg-status {
+.status {
     background-color: #DCDCDC;
 }
 
-.msg-reservada {
+.private_message {
     background-color: #FFDEDE;
 }
 
-.msg-normal {
+.message {
     background-color: #FFFFFF;
 }
 
-.container-conteudo div {
+.mensagens div {
     width: 375px;
     border-radius: 2px;
 
