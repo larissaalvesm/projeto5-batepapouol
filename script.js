@@ -71,7 +71,7 @@ function erroCarregarMensagens() {
     console.log(erro);
 }
 
-function criarTemplateStatus(mensagens, i) {
+function criarTemplateStatus(i) {
     return `<div class="${mensagens[i].type}" data-test="message">
                 <p>
                     <span class="hora">(${mensagens[i].time})</span>
@@ -80,7 +80,7 @@ function criarTemplateStatus(mensagens, i) {
         </div>`;
 }
 
-function criarTemplateMensagem(mensagens, i) {
+function criarTemplateMensagem(i) {
     return `<div class="${mensagens[i].type}" data-test="message">
             <p>
                 <span class="hora">(${mensagens[i].time})</span>
@@ -97,10 +97,10 @@ function exibirMensagens() {
     for (let i = 0; i < mensagens.length; i++) {
 
         if (mensagens[i].type === "status") {
-            lista.innerHTML = lista.innerHTML + criarTemplateStatus(mensagens, i);
+            lista.innerHTML = lista.innerHTML + criarTemplateStatus(i);
 
         } else if ((mensagens[i].type === "private_message" && mensagens[i].to === nome) || (mensagens[i].type === "message")) {
-            lista.innerHTML = lista.innerHTML + criarTemplateMensagem(mensagens, i);
+            lista.innerHTML = lista.innerHTML + criarTemplateMensagem(i);
         }
     }
 
@@ -122,11 +122,11 @@ function enviarMensagem() {
     promessa.catch(erroMsg);
 }
 
-function sucessoMsg(resposta) {
+function sucessoMsg() {
     carregarMensagens();
 }
 
-function erroMsg(erro) {
+function erroMsg() {
     window.location.reload();
 }
 
