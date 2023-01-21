@@ -18,6 +18,7 @@ function tratarSucesso(resposta) {
     const status = resposta.status;
 
     carregarMensagens();
+    manterConexao();
 }
 
 function tratarErro(erro) {
@@ -151,4 +152,3 @@ function erroMsg(erro) {
 
 entrarNaSala();
 
-manterConexao();
