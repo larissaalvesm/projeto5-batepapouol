@@ -29,8 +29,9 @@
         </div> <!--fim da div mensagens-->
 
         <footer class="base-mensagem">
-            <input data-test="input-message" type="text" placeholder="Escreva aqui..." />
-            <button data-test="send-message"><ion-icon name="paper-plane-outline"></ion-icon></button>
+            <input id="textinput" data-test="input-message" type="text" placeholder="Escreva aqui..." />
+            <button onclick="enviarMensagem()" data-test="send-message"><ion-icon
+                    name="paper-plane-outline"></ion-icon></button>
         </footer> <!--fim da div base-mensagem-->
 
     </div> <!--fim da div container-->

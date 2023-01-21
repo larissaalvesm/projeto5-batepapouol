@@ -119,6 +119,36 @@ function exibirMensagens() {
     document.querySelector(".mensagens").lastChild.scrollIntoView(true);
 }
 
+function enviarMensagem() {
+    const textoMsg = document.getElementById("textinput").value;
+
+    const msg = {
+        from: nome,
+        to: "Todos",
+        text: textoMsg,
+        type: "message"
+    };
+
+    const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', msg);
+    promessa.then(sucessoMsg);
+    promessa.catch(erroMsg);
+}
+
+function sucessoMsg(resposta) {
+    const resp = resposta.status;
+
+    carregarMensagens();
+}
+
+function erroMsg(erro) {
+    const resp = erro.response.status;
+
+    console.log(resp);
+
+    window.location.reload();
+}
+
+
 entrarNaSala();
 
 manterConexao();
