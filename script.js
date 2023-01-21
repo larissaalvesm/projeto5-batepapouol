@@ -1,6 +1,6 @@
-let nome;
 const intervaloChecagemConexao = 5000;
 const intervaloCarregarMensagens = 3000;
+let nome;
 let mensagens = [];
 
 function entrarNaSala() {
@@ -61,8 +61,6 @@ function carregarMensagens() {
 }
 
 function mensagensCarregadas(resposta) {
-
-    console.log(resposta.data);
     mensagens = resposta.data;
 
     exibirMensagens();
@@ -73,6 +71,24 @@ function erroCarregarMensagens() {
     console.log(erro);
 }
 
+function criarTemplateStatus(mensagens, i) {
+    return `<div class="${mensagens[i].type}" data-test="message">
+                <p>
+                    <span class="hora">(${mensagens[i].time})</span>
+                    <span class="nome">${mensagens[i].from} </span> ${mensagens[i].text}
+                </p>
+        </div>`;
+}
+
+function criarTemplateMensagem(mensagens, i) {
+    return `<div class="${mensagens[i].type}" data-test="message">
+            <p>
+                <span class="hora">(${mensagens[i].time})</span>
+                <span class="nome">${mensagens[i].from} </span> para <span class="nome">${mensagens[i].to} </span>: ${mensagens[i].text}
+            </p>
+    </div>`;
+}
+
 function exibirMensagens() {
     const lista = document.querySelector('.mensagens');
 
@@ -81,40 +97,11 @@ function exibirMensagens() {
     for (let i = 0; i < mensagens.length; i++) {
 
         if (mensagens[i].type === "status") {
-            let template = `
-        <div class="${mensagens[i].type}" data-test="message">
-                <p>
-                    <span class="hora">(${mensagens[i].time})</span>
-                    <span class="nome">${mensagens[i].from} </span> ${mensagens[i].text}
-                </p>
-        </div>
-        `
-            lista.innerHTML = lista.innerHTML + template;
+            lista.innerHTML = lista.innerHTML + criarTemplateStatus(mensagens, i);
 
-        } else if (mensagens[i].type === "private_message" && mensagens[i].to === nome) {
-
-            let template = `
-        <div class="${mensagens[i].type}" data-test="message">
-                <p>
-                    <span class="hora">(${mensagens[i].time})</span>
-                    <span class="nome">${mensagens[i].from} </span> para <span class="nome">${mensagens[i].to} </span>: ${mensagens[i].text}
-                </p>
-        </div>
-        `
-            lista.innerHTML = lista.innerHTML + template;
-
-        } else if (mensagens[i].type === "message") {
-            let template = `
-        <div class="${mensagens[i].type}" data-test="message">
-                <p>
-                    <span class="hora">(${mensagens[i].time})</span>
-                    <span class="nome">${mensagens[i].from} </span> para <span class="nome">${mensagens[i].to} </span>: ${mensagens[i].text}
-                </p>
-        </div>
-        `
-            lista.innerHTML = lista.innerHTML + template;
+        } else if ((mensagens[i].type === "private_message" && mensagens[i].to === nome) || (mensagens[i].type === "message")) {
+            lista.innerHTML = lista.innerHTML + criarTemplateMensagem(mensagens, i);
         }
-
     }
 
     document.querySelector(".mensagens").lastChild.scrollIntoView(true);
@@ -136,16 +123,10 @@ function enviarMensagem() {
 }
 
 function sucessoMsg(resposta) {
-    const resp = resposta.status;
-
     carregarMensagens();
 }
 
 function erroMsg(erro) {
-    const resp = erro.response.status;
-
-    console.log(resp);
-
     window.location.reload();
 }
 
