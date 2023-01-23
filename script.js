@@ -99,7 +99,7 @@ function exibirMensagens() {
         if (mensagens[i].type === "status") {
             lista.innerHTML = lista.innerHTML + criarTemplateStatus(i);
 
-        } else if ((mensagens[i].type === "private_message" && mensagens[i].to === nome) || (mensagens[i].type === "message")) {
+        } else if ((mensagens[i].type === "private_message" && (mensagens[i].to === nome || mensagens[i].from === nome)) || (mensagens[i].type === "message")) {
             lista.innerHTML = lista.innerHTML + criarTemplateMensagem(i);
         }
     }
